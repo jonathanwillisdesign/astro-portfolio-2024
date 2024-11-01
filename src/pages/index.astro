@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+---
+
+<Layout title="Jonathan Willis Design">
+	<main>
+		<header>
+			<h1>Jonathan Willis</h1>
+			<p>UX Designer</p>
+		</header>
+
+		<section id="about">
+			<h2>About Me</h2>
+			<p>I'm a passionate UX designer with 5 years of experience creating user-centered digital products. My focus is on crafting intuitive and visually appealing interfaces that solve real user problems.</p>
+		</section>
+
+		<section id="projects">
+			<h2>Projects</h2>
+			<div class="project-grid">
+				{projects.map(project => (
+					<ProjectCard
+						title={project.data.title}
+						description={project.data.description}
+						link={`/projects/${project.slug}`}
+					/>
+				))}
+			</div>
+		</section>
+
+		<section id="contact">
+			<h2>Get in Touch</h2>
+			<p>Interested in working together? Feel free to reach out!</p>
+			<a href="mailto:jane@example.com">jane@example.com</a>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	header {
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+	h1 {
+		font-size: 2.5rem;
+		margin-bottom: 0.5rem;
+	}
+	h2 {
+		font-size: 2rem;
+		margin-top: 2rem;
+	}
+	.project-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		margin-top: 1rem;
+	}
+	#contact {
+		text-align: center;
+		margin-top: 3rem;
+	}
+</style>
